@@ -1,1 +1,3 @@
 # Forum
+
+[[clean-architecture.png]]
