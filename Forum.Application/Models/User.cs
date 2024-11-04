@@ -35,4 +35,20 @@ public class User
             UpdatedAt = entity.UpdatedAt
         };
     }
+
+    public static User CreateFromDto(string nickname, string email, string password, string registerIp) 
+    {
+        User user = new User()
+        {
+            Id = Guid.NewGuid(),
+            Nickname = nickname,
+            Email = email,
+            Password = password,
+            RegisterIp = registerIp,
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now
+        };
+
+        return user;
+    }
 }
