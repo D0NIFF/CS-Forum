@@ -10,6 +10,5 @@ public interface IUsersRepository
     Task<IEnumerable<User>> GetAllUsers();
     Task<User> CreateUser(User user);
     Task<User> UpdateUser(User user);
-    Task<User> UpdateUserById(Guid id, User user);
-    Task<User> DeleteUser(Guid id);
+    Task<bool> DeleteUser(Guid id);
 }
