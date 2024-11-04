@@ -14,7 +14,9 @@ public class ForumDbContext : DbContext
 
     public ForumDbContext(DbContextOptions<ForumDbContext> options)
         : base(options)
-    { }
+    {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

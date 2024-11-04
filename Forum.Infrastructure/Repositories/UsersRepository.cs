@@ -1,6 +1,7 @@
 ﻿using Forum.Application.Models;
 using Forum.Application.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Forum.Domain.Entities;
 
 namespace Forum.Infrastructure.Repositories;
 
@@ -58,21 +59,51 @@ public class UsersRepository : IUsersRepository
 
     public async Task<User> CreateUser(User user)
     {
+        var userEntity = new UserEntity
+        {
+            Id = user.Id,
+            Nickname = user.Nickname,
+            Email = user.Email,
+            Password = user.Password,
+            RegisterIp = user.RegisterIp,
+            CreatedAt = user.CreatedAt,
+            UpdatedAt = user.UpdatedAt
+        };
+        await _context.Users.AddAsync(userEntity);
+        await _context.SaveChangesAsync();
 
+        return user;
     }
 
     public async Task<User> UpdateUser(User user)
     {
-
+        var userEntity = new UserEntity
+        {
+            Id = user.Id,
+            Nickname = user.Nickname,
+            Email = user.Email,
+            Password = user.Password,
+            RegisterIp = user.RegisterIp,
+            CreatedAt = user.CreatedAt,
+            UpdatedAt = user.UpdatedAt
+        };
+        _context.Users
+            .Update(userEntity);
+        _context.SaveChangesAsync();
+        return user;
     }
 
-    public async Task<User> UpdateUserById(Guid id, User user)
+    public async Task<bool> DeleteUser(Guid id)
     {
+        var user = await _context.Users
+            .Where (x => x.Id == id)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+            
+        if(user == null) return false;
 
-    }
-
-    public async Task<User> DeleteUser(Guid id)
-    {
-
+        _context.Users
+            .Remove(user);
+        return true;
     }
 }
