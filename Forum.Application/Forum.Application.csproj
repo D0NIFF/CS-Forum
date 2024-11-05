@@ -9,9 +9,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Forum.Domain\Forum.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
