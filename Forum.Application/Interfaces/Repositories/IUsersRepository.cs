@@ -4,11 +4,11 @@ namespace Forum.Application.Interfaces.Repositories;
 
 public interface IUsersRepository
 {
-    Task<User> GetUserById(Guid id);
-    Task<User> GetUserByNickname(string nickname);
-    Task<User> GetUserByEmail(string email);
-    Task<IEnumerable<User>> GetAllUsers();
-    Task<User> CreateUser(User user);
-    Task<User> UpdateUser(User user);
-    Task<bool> DeleteUser(Guid id);
+    Task<User> GetById(Guid id);
+    Task<User> GetByNickname(string nickname);
+    Task<User> GetByEmail(string email);
+    Task<IEnumerable<User>> Get();
+    Task<User> Create(User user);
+    Task<User> Update(User user);
+    Task<bool> Delete(Guid id);
 }
