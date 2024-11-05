@@ -1,4 +1,6 @@
 using Forum.Application.Interfaces.Repositories;
+using Forum.Application.Interfaces.Services;
+using Forum.Application.Services;
 using Forum.Infrastructure;
 using Forum.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+        builder.Services.AddScoped<IUsersService, UsersService>();
         
         builder.Services.AddDbContext<ForumDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
