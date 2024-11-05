@@ -14,12 +14,7 @@ public class UsersRepository : IUsersRepository
         _context = context;
     }
 
-    /// <summary>
-    /// Get one user by ID
-    /// </summary>
-    /// <param name="id">User ID</param>
-    /// <returns></returns>
-    public async Task<User> GetUserById(Guid id)
+    public async Task<User> GetById(Guid id)
     {
         var user = await _context.Users
             .Where (u => u.Id == id)
@@ -29,7 +24,7 @@ public class UsersRepository : IUsersRepository
         return User.CreateFromEntity(user);
     }
 
-    public async Task<User> GetUserByNickname(string nickname)
+    public async Task<User> GetByNickname(string nickname)
     {
         var user = await _context.Users
             .Where(x => x.Nickname == nickname)
@@ -39,7 +34,7 @@ public class UsersRepository : IUsersRepository
         return User.CreateFromEntity(user);
     }
 
-    public async Task<User> GetUserByEmail(string email)
+    public async Task<User> GetByEmail(string email)
     {
         var user = await _context.Users
             .Where(x => x.Email == email)
@@ -49,7 +44,7 @@ public class UsersRepository : IUsersRepository
         return User.CreateFromEntity(user);
     }
 
-    public async Task<IEnumerable<User>> GetAllUsers()
+    public async Task<IEnumerable<User>> Get()
     {
         return await _context.Users
             .AsNoTracking()
@@ -57,7 +52,7 @@ public class UsersRepository : IUsersRepository
             .ToListAsync();
     }
 
-    public async Task<User> CreateUser(User user)
+    public async Task<User> Create(User user)
     {
         var userEntity = new UserEntity
         {
@@ -75,7 +70,7 @@ public class UsersRepository : IUsersRepository
         return user;
     }
 
-    public async Task<User> UpdateUser(User user)
+    public async Task<User> Update(User user)
     {
         var userEntity = new UserEntity
         {
@@ -93,7 +88,7 @@ public class UsersRepository : IUsersRepository
         return user;
     }
 
-    public async Task<bool> DeleteUser(Guid id)
+    public async Task<bool> Delete(Guid id)
     {
         var user = await _context.Users
             .Where (x => x.Id == id)
