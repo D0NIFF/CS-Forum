@@ -48,10 +48,10 @@ public class UsersController : ControllerBase
         try
         {
             User userModel = Forum.Application.Models.User.CreateFromDto(
-            createUserDto.Nickname,
-            createUserDto.Email,
-            createUserDto.Password,
-            createUserDto.RegisterIp
+                createUserDto.Nickname,
+                createUserDto.Email,
+                createUserDto.Password,
+                createUserDto.RegisterIp
             );
             User user = await _usersService.CreateUser(userModel);
             UserResponse response = new UserResponse(user.Id, user.Nickname, user.Email);
