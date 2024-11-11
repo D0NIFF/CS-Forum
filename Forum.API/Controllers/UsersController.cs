@@ -82,4 +82,11 @@ public class UsersController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteUser(Guid id)
+    {
+        await _usersService.DeleteUser(id);
+        return Ok();
+    }
 }
