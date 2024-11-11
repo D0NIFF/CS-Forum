@@ -4,9 +4,9 @@ namespace Forum.Application.Interfaces.Repositories;
 
 public interface IPostCategoriesRepository
 {
-    Task<User> GetById(Guid id);
-    Task<IEnumerable<User>> Get();
-    Task<User> Create(User user);
-    Task<User> Update(User user);
+    Task<PostCategory> GetById(Guid id);
+    Task<IEnumerable<PostCategory>> Get();
+    Task<PostCategory> Create(PostCategory postCategory);
+    Task<PostCategory> Update(PostCategory postCategory);
     Task<bool> Delete(Guid id);
 }
