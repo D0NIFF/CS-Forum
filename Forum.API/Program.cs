@@ -21,7 +21,10 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<IUsersRepository, UsersRepository>();
         builder.Services.AddScoped<IUsersService, UsersService>();
-        
+
+        builder.Services.AddScoped<IPostCategoriesRepository, PostCategoriesRepository>();
+        builder.Services.AddScoped<IPostCategoriesService, PostCategoriesService>();
+
         builder.Services.AddDbContext<ForumDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
