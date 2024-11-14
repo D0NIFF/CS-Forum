@@ -1,4 +1,6 @@
-﻿namespace Forum.Application.Models;
+﻿using Forum.Domain.Entities;
+
+namespace Forum.Application.Models;
 
 public class Post
 {
@@ -21,4 +23,33 @@ public class Post
 
     public List<Comment> Comments { get; set; } = new List<Comment>();
 
+
+    public static Post CreateFromEntity(PostEntity entity)
+    {
+        return new Post()
+        {
+            Id = entity.Id,
+            Title = entity.Title,
+            Description = entity.Description,
+            UserId = entity.UserId,
+            CategoryId = entity.CategoryId,
+            CreatedAt = entity.CreatedAt,
+            UpdatedAt = entity.UpdatedAt,
+        };
+    }
+
+    public static Post CreateFromDto(string title, string description, Guid userId, Guid categoryId)
+    {
+        Post post = new Post()
+        {
+            Id = Guid.NewGuid(),
+            Title = title,
+            Description = description,
+            UserId = userId,
+            CategoryId = categoryId,
+            CreatedAt = DateTime.Now,
+        };
+
+        return post;
+    }
 }
