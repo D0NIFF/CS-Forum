@@ -52,11 +52,10 @@ namespace Forum.API.Controllers
         {
             try
             {
-                IEnumerable<User> users = await _usersService.GetAllUsers();
-                IEnumerable<PostCategory> postCategories = await _postCategoriesService.GetAllPostCategories();
-                Post postModel = Post.CreateFromDto(createPostDto.Title, createPostDto.Description, users.First().Id, postCategories.First().Id);
+                ActionResult<IEnumerable<UserResponse>> users = await _usersService.GetAllUsers();
+                Post postModel = Post.CreateFromDto(createPostDto.Title, createPostDto.Description, );
                 Post post = await _postsService.CreatePost(postModel);
-                PostResponse response = new PostResponse(post.Id, post.Title, post.Description, post.CreatedAt);
+                PostResponse response = new PostResponse(postCategory.Id, postCategory.Title);
                 return Ok(response);
             }
             catch (Exception ex)
