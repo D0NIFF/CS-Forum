@@ -4,6 +4,8 @@ using Forum.Application.Services;
 using Forum.Infrastructure;
 using Forum.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Forum.API;
 
@@ -19,12 +21,27 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        /* Users repository and service */
         builder.Services.AddScoped<IUsersRepository, UsersRepository>();
         builder.Services.AddScoped<IUsersService, UsersService>();
 
+        /* Posts categories repository and service */
         builder.Services.AddScoped<IPostCategoriesRepository, PostCategoriesRepository>();
         builder.Services.AddScoped<IPostCategoriesService, PostCategoriesService>();
 
+        /* Posts repository and service */
+        builder.Services.AddScoped<IPostsRepository, PostsRepository>();
+        builder.Services.AddScoped<IPostsService, PostsService>();
+
+        /* Authorization service */
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
+                options => builder.Configuration.Bind("JwtSettings", options))
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                options => builder.Configuration.Bind("CookieSettings", options));
+
+        /* Add DB context */
         builder.Services.AddDbContext<ForumDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
